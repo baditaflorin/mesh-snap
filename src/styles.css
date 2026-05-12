@@ -1,14 +1,9 @@
-/* App-local styles. Mesh chrome (settings drawer, self-ref bar) is provided by
- * @baditaflorin/mesh-common/styles.css imported in main.tsx. */
-
 :root {
   color-scheme: dark;
 }
-
 * {
   box-sizing: border-box;
 }
-
 html,
 body,
 #root {
@@ -22,30 +17,106 @@ body,
   -webkit-tap-highlight-color: transparent;
 }
 
-.feature-placeholder {
-  padding: 6rem 1.5rem 2rem;
-  text-align: center;
+.snap-screen {
+  padding: 4rem 1rem 5rem;
+  max-width: 40rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
 }
-
-.feature-placeholder h1 {
-  font-size: 1.6rem;
-  margin: 0;
+.snap-header {
+  text-align: center;
+}
+.snap-header h1 {
+  margin: 0 0 0.3rem;
   color: var(--mesh-accent);
+  font-size: 1.5rem;
 }
-
-.feature-placeholder p {
-  max-width: 32rem;
+.snap-status {
   margin: 0;
-  opacity: 0.85;
-  line-height: 1.5;
+  font-size: 0.78rem;
+  color: var(--mesh-muted);
 }
 
-.feature-status {
+.snap-arm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+  max-width: 32rem;
+}
+.snap-arm p {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--mesh-fg);
+  opacity: 0.85;
+}
+.snap-arm button {
+  background: var(--mesh-accent);
+  color: #0b0a06;
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem 2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.snap-preview {
+  width: 100%;
+  max-width: 36rem;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.snap-help {
+  margin: 0;
   font-size: 0.85rem;
-  opacity: 0.6;
+  color: var(--mesh-muted);
+}
+
+.snap-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.snap-actions button {
+  background: var(--mesh-accent);
+  color: #0b0a06;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.snap-countdown {
+  font-size: clamp(5rem, 22vw, 8rem);
+  font-weight: 700;
+  color: var(--mesh-accent);
   font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 30px color-mix(in srgb, var(--mesh-accent) 70%, transparent);
+}
+
+.snap-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.4rem;
+  width: 100%;
+}
+.snap-gallery a {
+  display: block;
+  aspect-ratio: 16 / 9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.snap-gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
