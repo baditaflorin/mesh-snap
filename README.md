@@ -1,7 +1,7 @@
 # mesh-snap
 
 [![pages](https://img.shields.io/badge/live-baditaflorin.github.io%2Fmesh-snap-00c2ff)](https://baditaflorin.github.io/mesh-snap/)
-[![version](https://img.shields.io/badge/version-0.1.0-blue)](https://github.com/baditaflorin/mesh-snap/blob/main/package.json)
+[![version](https://img.shields.io/badge/version-0.1.1-blue)](https://github.com/baditaflorin/mesh-snap/blob/main/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 > Every phone shoots a photo on the same millisecond — instant multi-angle moment

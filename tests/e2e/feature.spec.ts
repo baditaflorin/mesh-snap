@@ -34,3 +34,43 @@ test("trigger published by A is visible on B (countdown text)", async ({ browser
     await cleanup();
   }
 });
+
+/**
+ * The advertised core promise: "every phone shoots a photo on the same
+ * millisecond". The shutter fire-time is a single mesh-time `fireAtMs`
+ * coordinated through the shared `trigger` Y.Map. Camera capture is hardware,
+ * but the *synchronized trigger* is fully testable: when peer A fires the snap,
+ * peer B must converge on the SAME fire-timestamp. This assertion reads the
+ * shared `fireAtMs` (surfaced as `data-fire-at` on the countdown element) on
+ * BOTH peers and proves they are identical — the millisecond is shared, not
+ * computed independently per phone.
+ */
+test("synced shutter fire-timestamp matches on both peers", async ({ browser, baseURL }) => {
+  const { a, b, cleanup } = await openTwoPeers(browser, baseURL ?? "", { storagePrefix });
+  try {
+    await a.getByRole("button", { name: /arm camera/i }).click();
+    await b.getByRole("button", { name: /arm camera/i }).click();
+
+    // A triggers the synchronized shutter (10s gives the countdown time to be
+    // observed on both peers before it fires).
+    await a.getByRole("button", { name: /10s timer/i }).click();
+
+    // Both peers must render the countdown carrying the shared fire timestamp.
+    await expect(a.locator(".snap-countdown")).toHaveAttribute("data-fire-at", /^\d+$/, {
+      timeout: 3000,
+    });
+    await expect(b.locator(".snap-countdown")).toHaveAttribute("data-fire-at", /^\d+$/, {
+      timeout: 3000,
+    });
+
+    const fireAtA = await a.locator(".snap-countdown").getAttribute("data-fire-at");
+    const fireAtB = await b.locator(".snap-countdown").getAttribute("data-fire-at");
+
+    // The load-bearing cross-peer assertion: the shutter fire millisecond that
+    // A published is byte-for-byte the one B reads back from the shared doc.
+    expect(fireAtA).not.toBeNull();
+    expect(fireAtB).toBe(fireAtA);
+  } finally {
+    await cleanup();
+  }
+});

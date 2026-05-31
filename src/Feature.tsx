@@ -153,7 +153,9 @@ function Body({ room }: { room: YRoom; config: MeshConfig }) {
           )}
 
           {countingDown ? (
-            <div className="snap-countdown">{Math.ceil(remaining / 1000)}</div>
+            <div className="snap-countdown" data-fire-at={trig ? String(trig.fireAtMs) : undefined}>
+              {Math.ceil(remaining / 1000)}
+            </div>
           ) : (
             <div className="snap-actions">
               <button type="button" onClick={() => fireIn(3)}>
